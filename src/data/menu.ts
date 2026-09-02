@@ -16,6 +16,14 @@ export interface MenuItem {
   ingredients: string;
 }
 
+export interface GlossaryEntry {
+  style: string;
+  /** Shape first, then what it is like to eat. */
+  character: string;
+  /** Rendered as data, so keep it numeric. */
+  hydration: string;
+}
+
 export interface MenuGroup {
   title: string;
   /** One short line under the group heading. */
@@ -61,12 +69,12 @@ export const menu: MenuGroup[] = [
     items: [
       {
         name: 'Pad kra pao',
-        style: 'Neo-Neapolitan',
+        style: 'Contemporary Neapolitan',
         ingredients: 'Minced pork, holy basil, prik nam pla, crispy egg, mozzarella',
       },
       {
         name: 'Japanese beef shank curry',
-        style: 'Neo-Neapolitan',
+        style: 'Contemporary Neapolitan',
         ingredients: 'Beef shank curry, bonito, mozzarella, spring onion',
       },
       {
@@ -76,7 +84,7 @@ export const menu: MenuGroup[] = [
       },
       {
         name: 'Satay chicken',
-        style: 'Neo-Neapolitan',
+        style: 'Contemporary Neapolitan',
         ingredients: 'Chicken thigh, peanut, cucumber, red onion',
       },
       {
@@ -85,5 +93,27 @@ export const menu: MenuGroup[] = [
         ingredients: 'Laksa gravy, prawn, laksa leaf, mozzarella',
       },
     ],
+  },
+];
+
+/**
+ * What each style on the menu actually is. Every `style` used above should
+ * have an entry here, or the term is left unexplained on the page.
+ */
+export const glossary: GlossaryEntry[] = [
+  {
+    style: 'Contemporary Neapolitan',
+    character: 'Classic round pizza, crisp exterior, soft and airy interior',
+    hydration: '75% hyd',
+  },
+  {
+    style: 'Alla pala',
+    character: 'Rectangular pizza, crisp exterior, light open crumb',
+    hydration: '80% hyd',
+  },
+  {
+    style: 'Detroit',
+    character: 'Square pan pizza with a cheesy frico exterior',
+    hydration: '70% hyd',
   },
 ];
