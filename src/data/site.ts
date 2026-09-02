@@ -10,6 +10,9 @@ export const site = {
    *  Shown only as a fallback if formEndpoint is emptied. */
   email: 'jon@macadish.com',
   instagram: 'macadish',
+  /** Page name or numeric id. Leave empty and the icon is not rendered. */
+  facebook: '',
 } as const;
 
 export const instagramUrl = `https://www.instagram.com/${site.instagram}/`;
+export const facebookUrl = site.facebook ? `https://www.facebook.com/${site.facebook}/` : '';
