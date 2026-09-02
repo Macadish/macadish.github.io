@@ -1,0 +1,303 @@
+---
+import { Image } from 'astro:assets';
+import { heroSlides } from '../data/hero';
+---
+
+<section class="hero">
+  <div class="scrolly">
+    <div class="scrolly-media">
+      {
+        heroSlides.map((slide, i) => (
+          <div class:list={['fig', { 'is-active': i === 0 }]}>
+            <Image
+              src={slide.image}
+              alt={slide.alt}
+              widths={[900, 1400, 2000]}
+              sizes="100vw"
+              loading={i === 0 ? 'eager' : 'lazy'}
+              fetchpriority={i === 0 ? 'high' : 'auto'}
+            />
+          </div>
+        ))
+      }
+
+      <div class="scrim"></div>
+
+      <div class="captions">
+        {
+          heroSlides.map((slide, i) => (
+            <div
+              class:list={[
+                'caption',
+                i % 2 ? 'caption--top' : 'caption--bottom',
+                { 'is-active': i === 0 },
+              ]}
+            >
+              <div class="caption-inner">
+                {slide.eyebrow && <p class="eyebrow">{slide.eyebrow}</p>}
+                {slide.stage && (
+                  <p class="stage-no">
+                    {String(i).padStart(2, '0')} — {slide.chapter}
+                  </p>
+                )}
+                {slide.lead ? <h1>{slide.title}</h1> : <h2>{slide.title}</h2>}
+                {slide.body && <p class="body">{slide.body}</p>}
+                {slide.spec && (
+                  <p class="spec">
+                    {slide.spec.map((s) => (
+                      <span>
+                        <b>{s.value}</b> {s.label}
+                      </span>
+                    ))}
+                  </p>
+                )}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="rail">
+        <div class="rail-track">
+          {heroSlides.map((_, i) => <span class:list={['rail-seg', { 'is-done': i === 0 }]} />)}
+        </div>
+        <div class="rail-meta">
+          <span class="now">{heroSlides[0].chapter}</span>
+          <span class="count">00 / {String(heroSlides.length - 1).padStart(2, '0')}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="steps">
+      {heroSlides.map((_, i) => <div class:list={['step', { 'is-active': i === 0 }]} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .scrolly { position: relative; }
+
+  .scrolly-media {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
+    background: #14181a;
+  }
+
+  .fig {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 620ms ease;
+  }
+
+  .fig.is-active { opacity: 1; }
+
+  .fig :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 62% 50%;
+  }
+
+  .scrim {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(8, 10, 11, 0.92) 0%,
+        rgba(8, 10, 11, 0.7) 16%,
+        rgba(8, 10, 11, 0.18) 38%,
+        rgba(8, 10, 11, 0.14) 58%,
+        rgba(8, 10, 11, 0.66) 82%,
+        rgba(8, 10, 11, 0.94) 100%
+      ),
+      linear-gradient(to right, rgba(8, 10, 11, 0.34) 0%, rgba(8, 10, 11, 0.06) 48%, rgba(8, 10, 11, 0) 72%);
+  }
+
+  /* captions are pinned — they cross-fade in place, they do not scroll */
+
+  .captions {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: 0 var(--pad);
+    opacity: 0;
+    transition: opacity 560ms ease;
+  }
+
+  .caption--bottom { bottom: clamp(4.6rem, 11vh, 7.5rem); }
+  .caption--top { top: clamp(5.5rem, 13vh, 8.5rem); }
+  .caption.is-active { opacity: 1; }
+
+  .caption-inner { max-width: 41rem; color: var(--on); }
+
+  .caption .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--on-dim);
+    margin: 0 0 1rem;
+  }
+
+  .caption .stage-no {
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--on-sci);
+    margin: 0 0 0.6rem;
+  }
+
+  .caption h1,
+  .caption h2 {
+    font-family: var(--f-display);
+    font-weight: 700;
+    letter-spacing: -0.032em;
+    text-wrap: balance;
+    margin: 0 0 0.85rem;
+  }
+
+  .caption h1 {
+    font-stretch: 106%;
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    line-height: 0.98;
+  }
+
+  .caption h2 {
+    font-stretch: 108%;
+    font-size: clamp(1.7rem, 3.8vw, 2.6rem);
+    line-height: 1.02;
+  }
+
+  .caption p.body {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--on-dim);
+    max-width: 38rem;
+  }
+
+  .caption .spec {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1.15rem;
+    margin: 1.25rem 0 0;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--on-rule);
+    font-family: var(--f-mono);
+    font-size: 0.71rem;
+    color: var(--on-dim);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .caption .spec b { color: var(--on); font-weight: 500; }
+
+  .rail {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0 var(--pad) clamp(1rem, 2.5vw, 1.6rem);
+    z-index: 3;
+  }
+
+  .rail-track { display: flex; gap: 2px; }
+
+  .rail-seg {
+    flex: 1;
+    height: 2px;
+    background: var(--on-rule);
+    transition: background 320ms ease;
+  }
+
+  .rail-seg.is-done { background: var(--on-sci); }
+
+  .rail-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.55rem;
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: var(--on-dim);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rail-meta .now {
+    color: var(--on-sci);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  /* invisible spacers that drive which caption is showing */
+
+  .steps {
+    position: relative;
+    z-index: 1;
+    margin-top: -100svh;
+    pointer-events: none;
+  }
+
+  .step { height: 100svh; }
+
+  @media (max-width: 640px) {
+    .caption-inner { max-width: 100%; }
+    .caption--bottom { bottom: clamp(4.6rem, 13vh, 7rem); }
+    .caption--top { top: clamp(4.8rem, 11vh, 7rem); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fig,
+    .caption { transition: opacity 120ms linear; }
+  }
+</style>
+
+<script>
+  const steps = Array.from(document.querySelectorAll<HTMLElement>('.step'));
+  const figs = Array.from(document.querySelectorAll<HTMLElement>('.fig'));
+  const caps = Array.from(document.querySelectorAll<HTMLElement>('.caption'));
+  const segs = Array.from(document.querySelectorAll<HTMLElement>('.rail-seg'));
+  const now = document.querySelector<HTMLElement>('.rail-meta .now');
+  const count = document.querySelector<HTMLElement>('.rail-meta .count');
+
+  const chapters = Array.from(caps).map(
+    (c) => c.querySelector('.stage-no')?.textContent?.split('—')[1]?.trim() ?? 'Macadish'
+  );
+
+  let current = 0;
+  const pad = (n: number) => String(n).padStart(2, '0');
+
+  function activate(i: number) {
+    if (i === current) return;
+    current = i;
+    figs.forEach((f, j) => f.classList.toggle('is-active', j === i));
+    caps.forEach((c, j) => c.classList.toggle('is-active', j === i));
+    segs.forEach((s, j) => s.classList.toggle('is-done', j <= i));
+    if (now) now.textContent = i ? `${pad(i)} — ${chapters[i]}` : chapters[0];
+    if (count) count.textContent = `${pad(i)} / ${pad(steps.length - 1)}`;
+  }
+
+  if (steps.length && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const en of entries) {
+          if (en.isIntersecting) activate(steps.indexOf(en.target as HTMLElement));
+        }
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+    );
+    steps.forEach((s) => io.observe(s));
+  }
+</script>

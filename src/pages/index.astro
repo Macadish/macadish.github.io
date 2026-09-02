@@ -1,0 +1,268 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import { styles } from '../data/styles';
+
+const posts = (await getCollection('journal', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+---
+
+<Base
+  title="Macadish — pizza from a home kitchen in Singapore"
+  description="Four doughs off one bench: contemporary Neapolitan, alla pala, focaccia and Detroit. Blended flour, 48–72 hour ferments, and a log of what went wrong."
+>
+  <Hero />
+
+  <section class="band">
+    <div class="sec-head">
+      <h2>Styles, compared</h2>
+      <span class="aside">Same variables, every dough</span>
+    </div>
+
+    <div class="table-scroll">
+      <table class="styles">
+        <thead>
+          <tr>
+            <th scope="col">Style</th>
+            <th scope="col">Hydration</th>
+            <th scope="col">Flour W</th>
+            <th scope="col">Proof</th>
+            <th scope="col">Oven</th>
+            <th scope="col">Bake</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            styles.map((s) => (
+              <tr>
+                <th scope="row">
+                  {s.name}
+                  <small>{s.character}</small>
+                </th>
+                <td>
+                  <i class="bar" style={`width:${Math.round(s.hydration * 50)}px`} />
+                  {Math.round(s.hydration * 100)}%
+                </td>
+                <td>{s.flourW}</td>
+                <td>{s.proof}</td>
+                <td>{s.oven}</td>
+                <td>{s.bake}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note">Placeholder figures — to be replaced with measured values.</p>
+  </section>
+
+  <section class="band">
+    <div class="sec-head">
+      <h2>From the log</h2>
+      <span class="aside">Every entry is its own front door</span>
+    </div>
+
+    <div class="cards">
+      {
+        posts.map((p) => (
+          <a class="card" href={`/journal/${p.id}/`}>
+            <div class="kicker">
+              <span class="n">{p.data.trial ?? p.data.style}</span>
+              <span>{fmt(p.data.date)}</span>
+            </div>
+            <h3>{p.data.title}</h3>
+            <p>{p.data.description}</p>
+            <span class="read">Read entry →</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="band" id="subscribe">
+    <div class="sub">
+      <div>
+        <p class="label">No shop yet</p>
+        <h2>One entry, most weeks.</h2>
+        <p class="blurb">
+          What I baked, what I measured, and what went wrong. When there is
+          something to sell, subscribers hear first.
+        </p>
+      </div>
+      <div>
+        <form class="form" method="post" action="#">
+          <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required />
+          <button type="submit">Subscribe</button>
+        </form>
+        <p class="note">
+          Not yet wired to a provider.<br />
+          No address published: home kitchen, contact by form.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .table-scroll { overflow-x: auto; }
+
+  table.styles {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--f-mono);
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    min-width: 640px;
+  }
+
+  table.styles th,
+  table.styles td {
+    text-align: left;
+    padding: 0.72rem 1rem 0.72rem 0;
+    border-bottom: 1px solid var(--rule-soft);
+    white-space: nowrap;
+  }
+
+  table.styles thead th {
+    font-size: 0.6rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  table.styles tbody th {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-stretch: 110%;
+    font-size: 0.94rem;
+    padding-right: 2rem;
+  }
+
+  table.styles tbody th small {
+    display: block;
+    font-family: var(--f-body);
+    font-stretch: normal;
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .bar {
+    display: inline-block;
+    vertical-align: middle;
+    height: 6px;
+    background: var(--sci);
+    margin-right: 0.5rem;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border-block: 1px solid var(--rule);
+  }
+
+  .card {
+    background: var(--paper);
+    padding: 1.35rem 1.4rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-decoration: none;
+  }
+
+  .card:hover { background: var(--surface); }
+
+  .card .kicker {
+    display: flex;
+    gap: 0.7rem;
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .card .kicker .n { color: var(--sci); }
+
+  .card h3 {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-stretch: 108%;
+    font-size: 1.12rem;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin: 0.15rem 0 0;
+    text-wrap: balance;
+  }
+
+  .card p { margin: 0; font-size: 0.92rem; color: var(--muted); }
+
+  .card .read {
+    margin-top: auto;
+    padding-top: 0.9rem;
+    font-family: var(--f-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sci);
+  }
+
+  .sub {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  .sub h2 {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-stretch: 108%;
+    font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+    line-height: 1.06;
+    letter-spacing: -0.025em;
+    margin: 0.7rem 0 0.8rem;
+    text-wrap: balance;
+  }
+
+  .sub .blurb { color: var(--muted); margin: 0; max-width: 42ch; }
+
+  .form { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.4rem; }
+
+  .form input {
+    flex: 1 1 190px;
+    font-family: var(--f-mono);
+    font-size: 0.82rem;
+    padding: 0.75rem 0.85rem;
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--rule);
+  }
+
+  .form input::placeholder { color: var(--muted); }
+
+  .form button {
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.75rem 1.3rem;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    cursor: pointer;
+  }
+
+  .note { margin-top: 0.9rem; }
+</style>

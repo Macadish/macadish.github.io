@@ -1,0 +1,167 @@
+---
+interface Props { transparent?: boolean }
+const { transparent = false } = Astro.props;
+const path = Astro.url.pathname;
+const isCurrent = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+
+<header class:list={['site', { transparent }]}>
+  <a class="wordmark" href="/" aria-label="Macadish — home">MACAD<span>·</span>ISH</a>
+
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+    <span class="sr">Menu</span><i></i><i></i>
+  </button>
+
+  <nav id="site-nav" aria-label="Primary">
+    <a href="/menu/" aria-current={isCurrent('/menu') ? 'page' : undefined}>Menu</a>
+    <a href="/journal/" aria-current={isCurrent('/journal') ? 'page' : undefined}>Journal</a>
+    <span class="nav-sep" aria-hidden="true"></span>
+    <a class="nav-cta" href="/#subscribe">Subscribe</a>
+  </nav>
+</header>
+
+<style>
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.85rem var(--pad);
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .wordmark {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-stretch: 118%;
+    font-size: 1.02rem;
+    letter-spacing: -0.005em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .wordmark span { color: var(--sci); }
+
+  nav {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 1.3rem;
+    font-family: var(--f-mono);
+    font-size: 0.71rem;
+    letter-spacing: 0.05em;
+  }
+
+  nav a { color: var(--muted); text-decoration: none; }
+  nav a:hover,
+  nav a[aria-current='page'] { color: var(--ink); }
+
+  .nav-sep {
+    width: 1px;
+    height: 15px;
+    background: var(--rule);
+    flex: none;
+  }
+
+  nav a.nav-cta {
+    color: var(--ink);
+    border: 1px solid var(--rule);
+    padding: 0.42rem 0.9rem;
+    transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+  }
+
+  nav a.nav-cta:hover {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .nav-toggle {
+    display: none;
+    margin-left: auto;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 34px;
+    height: 30px;
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .nav-toggle i {
+    display: block;
+    height: 1px;
+    width: 20px;
+    background: var(--ink);
+    transition: transform 220ms ease;
+  }
+
+  .nav-toggle[aria-expanded='true'] i:first-of-type { transform: translateY(3px) rotate(45deg); }
+  .nav-toggle[aria-expanded='true'] i:last-of-type { transform: translateY(-3px) rotate(-45deg); }
+
+  @media (max-width: 720px) {
+    .nav-toggle { display: flex; }
+
+    nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      margin: 0;
+      padding: 0.4rem var(--pad) 1.1rem;
+      background: var(--paper);
+      border-bottom: 1px solid var(--rule);
+      font-size: 0.82rem;
+    }
+
+    nav[data-open='true'] { display: flex; }
+    nav a { padding: 0.75rem 0; border-bottom: 1px solid var(--rule-soft); }
+    .nav-sep { display: none; }
+
+    nav a.nav-cta {
+      border: 1px solid var(--rule);
+      text-align: center;
+      margin-top: 0.9rem;
+      padding: 0.7rem 1rem;
+    }
+  }
+</style>
+
+<script>
+  const nav = document.getElementById('site-nav');
+  const btn = document.querySelector<HTMLButtonElement>('.nav-toggle');
+
+  function close() {
+    nav?.removeAttribute('data-open');
+    btn?.setAttribute('aria-expanded', 'false');
+  }
+
+  btn?.addEventListener('click', () => {
+    const open = nav?.getAttribute('data-open') === 'true';
+    if (open) {
+      close();
+    } else {
+      nav?.setAttribute('data-open', 'true');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  nav?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).tagName === 'A') close();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
+</script>

@@ -1,0 +1,41 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site">
+  <div class="row">
+    <span>Macad·ish — home kitchen, Singapore</span>
+    <span>Not currently trading</span>
+    <a href="/menu/">Menu</a>
+    <a href="/journal/">Journal</a>
+    <a href="/rss.xml">RSS</a>
+    <a href="https://www.instagram.com/macadish/" rel="me noopener" target="_blank">Instagram</a>
+    <span class="year">© {year}</span>
+  </div>
+</footer>
+
+<style>
+  footer.site {
+    padding: 2.5rem var(--edge) 4rem;
+    border-top: 1px solid var(--rule);
+    font-family: var(--f-mono);
+    font-size: 0.66rem;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+
+  .row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+
+  .row a { color: var(--muted); }
+  .row a:hover { color: var(--ink); }
+  .year { margin-left: auto; }
+
+  @media (max-width: 620px) {
+    .year { margin-left: 0; }
+  }
+</style>

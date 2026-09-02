@@ -1,0 +1,54 @@
+---
+interface Props { formula: Record<string, any>; caption?: string }
+const { formula: f, caption = 'Formula' } = Astro.props;
+
+const rows: [string, string][] = [];
+const push = (k: string, v: string | undefined) => v && rows.push([k, v]);
+
+push('Flour', [f.flour, f.flourW && `W ${f.flourW}`, f.proteinPct && `${f.proteinPct}% protein`]
+  .filter(Boolean).join(' · ') || undefined);
+push('Hydration', f.hydrationPct != null ? `${f.hydrationPct}%` : undefined);
+push('Salt', f.saltPct != null ? `${f.saltPct}% of flour` : undefined);
+push('Yeast', f.yeastPct != null ? `${f.yeastPct}%` : undefined);
+push('Bulk', f.bulkHours != null ? `${f.bulkHours} h${f.bulkTempC != null ? ` @ ${f.bulkTempC} °C` : ''}` : undefined);
+push('Cold proof', f.coldProofHours != null ? `${f.coldProofHours} h${f.coldProofTempC != null ? ` @ ${f.coldProofTempC} °C` : ''}` : undefined);
+push('Ball weight', f.ballWeightG != null ? `${f.ballWeightG} g` : undefined);
+push('Oven', [f.ovenDeckC && `${f.ovenDeckC} °C deck`, f.ovenDomeC && `${f.ovenDomeC} °C dome`]
+  .filter(Boolean).join(' · ') || undefined);
+push('Bake', f.bakeSeconds != null ? (f.bakeSeconds >= 120 ? `${Math.round(f.bakeSeconds / 60)} min` : `${f.bakeSeconds} s`) : undefined);
+---
+
+<figure class="component" data-comp="spec table">
+  <table>
+    <caption>{caption}</caption>
+    <tbody>
+      {rows.map(([k, v]) => (<tr><th scope="row">{k}</th><td>{v}</td></tr>))}
+    </tbody>
+  </table>
+</figure>
+
+<style>
+  .component { margin: 2.2rem 0; position: relative; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--f-mono);
+    font-size: 0.79rem;
+    font-variant-numeric: tabular-nums;
+    border: 1px solid var(--rule);
+  }
+  th, td { padding: 0.55rem 0.9rem; text-align: left; }
+  tr + tr { border-top: 1px solid var(--rule-soft); }
+  th { color: var(--muted); font-weight: 400; width: 42%; }
+  td { font-weight: 500; }
+  caption {
+    caption-side: top;
+    text-align: left;
+    font-family: var(--f-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: 0.5rem;
+  }
+</style>

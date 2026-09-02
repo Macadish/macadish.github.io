@@ -1,0 +1,114 @@
+---
+import Base from '../layouts/Base.astro';
+import { menu } from '../data/menu';
+---
+
+<Base
+  title="Menu — Macadish"
+  description="Contemporary Neapolitan, alla pala by the slice, rotating experiments, and local flavours across the range. Sample menu, subject to seasonal availability."
+>
+  <div class="page-head">
+    <p class="label">Singapore · not currently trading</p>
+    <h1>Menu</h1>
+    <p class="lede">Sample menu, subject to ingredient availability for the season.</p>
+  </div>
+
+  <section class="band" style="border-top:0">
+    <div class="menu-list">
+      {
+        menu.map((group) => (
+          <div class="menu-group">
+            <p class="menu-group-title">
+              {group.title}
+              <span class="spec">{group.spec}</span>
+            </p>
+
+            {group.items.map((item) => (
+              <div class="menu-row">
+                <h2>{item.name}</h2>
+                {item.style && <p class="style">{item.style}</p>}
+                <p class="desc">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="note">Placeholder items for layout only.</p>
+  </section>
+</Base>
+
+<style>
+  .menu-list { display: grid; gap: 0; }
+
+  .menu-group + .menu-group { margin-top: 2.8rem; }
+
+  .menu-group-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+    margin: 0 0 0.4rem;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid var(--ink);
+    font-family: var(--f-mono);
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .menu-group-title .spec {
+    margin-left: auto;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: none;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .menu-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.75fr);
+    gap: 0.35rem 2.5rem;
+    align-items: baseline;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .menu-row h2 {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-stretch: 110%;
+    font-size: 1.05rem;
+    letter-spacing: -0.012em;
+    margin: 0;
+  }
+
+  .menu-row .style {
+    grid-column: 1;
+    margin: 0;
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sci);
+  }
+
+  .menu-row .desc {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    margin: 0;
+    font-size: 0.97rem;
+    color: var(--muted);
+  }
+
+  .note { margin-top: 2rem; }
+
+  @media (max-width: 700px) {
+    .menu-row { grid-template-columns: 1fr; gap: 0.25rem; }
+    .menu-row .desc { grid-column: 1; grid-row: auto; }
+    .menu-group-title .spec { margin-left: 0; flex-basis: 100%; }
+  }
+</style>

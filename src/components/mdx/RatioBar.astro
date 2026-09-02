@@ -1,0 +1,45 @@
+---
+interface Props { flour?: number; water: number; salt: number; yeast?: number }
+const { flour = 100, water, salt, yeast = 0 } = Astro.props;
+const parts = [
+  { key: 'Flour', pct: flour, colour: 'var(--sci)' },
+  { key: 'Water', pct: water, colour: 'var(--sci-wash)' },
+  { key: 'Salt', pct: salt, colour: 'var(--craft)' },
+  ...(yeast ? [{ key: 'Yeast', pct: yeast, colour: 'var(--ink)' }] : []),
+];
+---
+
+<figure class="ratio">
+  <span class="label">Baker's percentages</span>
+  <div class="track">
+    {parts.map((p) => <div style={`flex:${p.pct};background:${p.colour}`} />)}
+  </div>
+  <div class="key">
+    {parts.map((p) => (
+      <span><i style={`background:${p.colour}`} />{p.key} {p.pct}%</span>
+    ))}
+  </div>
+</figure>
+
+<style>
+  .ratio { border: 1px solid var(--rule); padding: 1rem 1.1rem 1.15rem; margin: 2.2rem 0; }
+  .label {
+    font-family: var(--f-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .track { display: flex; height: 26px; margin: 0.7rem 0 0.6rem; }
+  .key {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1.15rem;
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .key span { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .key i { width: 9px; height: 9px; display: inline-block; }
+</style>

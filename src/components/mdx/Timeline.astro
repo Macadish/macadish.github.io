@@ -1,0 +1,42 @@
+---
+interface Stage { name: string; detail: string; hours: number }
+interface Props { stages: Stage[]; label?: string }
+const { stages, label = 'Schedule' } = Astro.props;
+const total = stages.reduce((a, s) => a + s.hours, 0);
+const totalLabel = total >= 1 ? `${Math.round(total * 10) / 10} h total` : `${Math.round(total * 60)} min total`;
+---
+
+<figure class="timeline">
+  <span class="label">{label} — {totalLabel}</span>
+  <div class="track">
+    {stages.map((s) => (
+      <div class="stage" style={`flex:${s.hours}`}>
+        <span class="t">{s.name}</span>
+        <span class="d">{s.detail}</span>
+      </div>
+    ))}
+  </div>
+  <p class="foot">Widths proportional to duration.</p>
+</figure>
+
+<style>
+  .timeline { border: 1px solid var(--rule); padding: 1rem 1.1rem 1.1rem; margin: 2.2rem 0; }
+  .label {
+    font-family: var(--f-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .track { display: flex; gap: 2px; margin: 0.8rem 0 0.55rem; }
+  .stage {
+    min-width: 0;
+    padding: 0.5rem 0.55rem;
+    background: var(--surface);
+    border-top: 2px solid var(--sci);
+    overflow: hidden;
+  }
+  .t { font-family: var(--f-mono); font-size: 0.66rem; font-weight: 600; display: block; }
+  .d { font-family: var(--f-mono); font-size: 0.6rem; color: var(--muted); }
+  .foot { margin: 0; font-family: var(--f-mono); font-size: 0.6rem; color: var(--muted); }
+</style>

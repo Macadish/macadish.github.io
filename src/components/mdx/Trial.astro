@@ -1,0 +1,29 @@
+---
+interface Props { label?: string }
+const { label = 'Discarded' } = Astro.props;
+---
+
+<aside class="callout">
+  <span class="label">{label}</span>
+  <slot />
+</aside>
+
+<style>
+  .callout {
+    border-left: 2px solid var(--craft);
+    background: var(--craft-wash);
+    padding: 1rem 1.15rem;
+    margin: 2.2rem 0;
+  }
+  .label {
+    display: block;
+    font-family: var(--f-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--craft);
+    margin-bottom: 0.4rem;
+  }
+  .callout :global(p) { margin: 0; font-size: 0.95rem; max-width: none; }
+  .callout :global(p + p) { margin-top: 0.6rem; }
+</style>

@@ -1,0 +1,66 @@
+---
+import '../styles/tokens.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Set on the home page so the header can sit over the hero. */
+  transparentHeader?: boolean;
+}
+
+const { title, description, transparentHeader = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Macadish journal" href="/rss.xml" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    />
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <SiteHeader transparent={transparentHeader} />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+
+    <style>
+      .skip {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        z-index: 300;
+        background: var(--ink);
+        color: var(--paper);
+        font-family: var(--f-mono);
+        font-size: 0.72rem;
+        padding: 0.7rem 1rem;
+      }
+      .skip:focus { left: 0; }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const posts = (await getCollection('journal', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+---
+
+<Base
+  title="Journal — Macadish"
+  description="Every bake gets a page: flour, water, salt, times, temperatures, and a sentence about what went wrong."
+>
+  <div class="page-head">
+    <p class="label">The log · Singapore</p>
+    <h1>Journal</h1>
+    <p class="lede">
+      Every bake gets a page — flour, water, salt, times, temperatures, and what
+      went wrong. The useful entries are the failures.
+    </p>
+  </div>
+
+  <section class="band" style="border-top:0">
+    <ol class="list">
+      {
+        posts.map((p) => (
+          <li>
+            <a href={`/journal/${p.id}/`}>
+              <span class="meta">
+                <span class="n">{p.data.trial ?? p.data.style}</span>
+                <span>{fmt(p.data.date)}</span>
+                {p.data.formula && (
+                  <span class="hyd">{p.data.formula.hydrationPct}% hydration</span>
+                )}
+              </span>
+              <h2>{p.data.title}</h2>
+              <p>{p.data.description}</p>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</Base>
+
+<style>
+  .list { list-style: none; margin: 0; padding: 0; }
+
+  .list li { border-bottom: 1px solid var(--rule-soft); }
+  .list li:first-child { border-top: 1px solid var(--ink); }
+
+  .list a {
+    display: block;
+    padding: 1.5rem 0;
+    text-decoration: none;
+  }
+
+  .list a:hover h2 { color: var(--sci); }
+
+  .meta {
+    display: flex;
+    gap: 1.1rem;
+    flex-wrap: wrap;
+    font-family: var(--f-mono);
+    font-size: 0.63rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .meta .n { color: var(--sci); }
+  .meta .hyd { margin-left: auto; }
+
+  .list h2 {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-stretch: 108%;
+    font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0.5rem 0 0.35rem;
+    text-wrap: balance;
+    transition: color 160ms ease;
+  }
+
+  .list p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.97rem;
+    max-width: var(--measure);
+  }
+
+  @media (max-width: 620px) {
+    .meta .hyd { margin-left: 0; }
+  }
+</style>

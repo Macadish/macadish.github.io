@@ -1,0 +1,120 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('journal', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<Base title={`${post.data.title} — Macadish`} description={post.data.description}>
+  <article class="post">
+    <p class="kicker">
+      {post.data.trial && <span class="trial">{post.data.trial}</span>}
+      <span>{fmt(post.data.date)}</span>
+      {post.data.style && <span>{post.data.style}</span>}
+    </p>
+
+    <h1>{post.data.title}</h1>
+    <p class="lede">{post.data.description}</p>
+
+    <div class="prose">
+      <Content frontmatter={post.data} />
+    </div>
+
+    <p class="back"><a href="/journal/">← All entries</a></p>
+  </article>
+</Base>
+
+<style>
+  .post {
+    max-width: calc(780px + var(--pad) * 2);
+    margin: 0 auto;
+    padding: clamp(2.5rem, 6vw, 4rem) var(--pad) 5rem;
+  }
+
+  .kicker {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin: 0;
+    font-family: var(--f-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .kicker .trial { color: var(--craft); }
+
+  .post h1 {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-stretch: 106%;
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    line-height: 1.02;
+    letter-spacing: -0.028em;
+    margin: 1.4rem 0 0;
+    text-wrap: balance;
+  }
+
+  .post .lede {
+    font-size: 1.16rem;
+    color: var(--muted);
+    margin: 1rem 0 0;
+    max-width: var(--measure);
+  }
+
+  .prose { margin-top: 2rem; }
+  .prose :global(p) { max-width: var(--measure); }
+
+  .prose :global(h2) {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-stretch: 110%;
+    font-size: 1.2rem;
+    letter-spacing: -0.015em;
+    margin: 2.6rem 0 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .prose :global(blockquote) {
+    margin: 1.6rem 0;
+    padding-left: 1.1rem;
+    border-left: 2px solid var(--sci);
+    font-family: var(--f-mono);
+    font-size: 0.86rem;
+    color: var(--ink);
+  }
+
+  .prose :global(hr) {
+    border: 0;
+    border-top: 1px solid var(--rule);
+    margin: 2.5rem 0 1.5rem;
+  }
+
+  .prose :global(em) { color: var(--muted); }
+
+  .back {
+    margin-top: 3rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--rule);
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .back a { color: var(--muted); text-decoration: none; }
+  .back a:hover { color: var(--ink); }
+</style>

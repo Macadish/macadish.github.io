@@ -1,0 +1,81 @@
+---
+title: Forty-eight hours cold, and what it cost me
+description: >-
+  Extending the cold proof from 24 to 48 hours opened the crumb and flattened
+  the flavour. Both, from one change.
+date: 2026-08-30
+trial: Trial 14
+style: Contemporary Neapolitan
+formula:
+  flour: Caputo Pizzeria
+  flourW: 270
+  proteinPct: 12.5
+  hydrationPct: 62
+  saltPct: 2.8
+  yeastPct: 0.12
+  bulkHours: 4
+  bulkTempC: 22
+  coldProofHours: 48
+  coldProofTempC: 4
+  ballWeightG: 250
+  ovenDeckC: 470
+  ovenDomeC: 490
+  bakeSeconds: 90
+---
+
+import SpecTable from '../../components/mdx/SpecTable.astro';
+import Timeline from '../../components/mdx/Timeline.astro';
+import RatioBar from '../../components/mdx/RatioBar.astro';
+import Trial from '../../components/mdx/Trial.astro';
+
+I extended the cold proof from 24 hours to 48 and changed nothing else. The crumb
+opened the way I hoped. The flavour went somewhere I did not expect.
+
+<SpecTable formula={frontmatter.formula} caption="Formula — trial 14" />
+
+## What the extra day did
+
+Fermentation slows almost to a stop at 4 °C while the enzymes keep working. That
+is where flavour is supposed to be built — not by the yeast, which is nearly
+dormant, but by the slow breakdown of starch and protein into things that taste
+of something.
+
+The structure did exactly what the literature says it should. Cell size up
+noticeably against trial 13, walls visibly thinner, and the rim took the heat
+without collapsing. What I did not expect was the flavour going *flatter* rather
+than deeper — less of the sweetness I get at 24 hours, and a faint sourness that
+was not there before.
+
+<Timeline
+  stages={[
+    { name: 'Mix', detail: '20 min', hours: 0.33 },
+    { name: 'Bulk', detail: '4 h @ 22 °C', hours: 4 },
+    { name: 'Ball', detail: '1 h', hours: 1 },
+    { name: 'Cold proof', detail: '48 h @ 4 °C', hours: 48 },
+    { name: 'Temper', detail: '3 h @ 20 °C', hours: 3 },
+  ]}
+/>
+
+The schedule makes the shape of it obvious: almost the entire process is waiting,
+and the part I actually control is a minute and a half at the end.
+
+<RatioBar water={62} salt={2.8} yeast={0.12} />
+
+## Where it went wrong
+
+<Trial label="Discarded — trial 14b">
+  Same formula, 72 h cold. The gluten had gone past useful: the ball tore on
+  opening and the rim never recovered its structure in the bake.
+
+  Recorded here rather than quietly deleted, because the boundary is the finding.
+</Trial>
+
+Next: hold 48 h and drop yeast to 0.09% to see whether the flavour loss tracks
+fermentation extent or simply elapsed time. If it is elapsed time, the answer is
+that 24 hours was right all along and I have been chasing crumb structure at the
+cost of taste.
+
+---
+
+*Figures on this page are placeholder content while the log is being kept
+properly. They will be replaced with measured values.*
