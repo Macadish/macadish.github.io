@@ -15,8 +15,7 @@ import hero06 from '../assets/hero/hero-06.jpg';
 import hero07 from '../assets/hero/hero-07.jpg';
 import hero08 from '../assets/hero/hero-08.jpg';
 import hero09 from '../assets/hero/hero-09.jpg';
-import heroNy from '../assets/hero/hero-10-ny.jpg';
-import heroTavern from '../assets/hero/hero-11-tavern.jpg';
+import heroThin from '../assets/hero/hero-10-thin.jpg';
 
 export interface HeroSlide {
   image: ImageMetadata;
@@ -94,25 +93,16 @@ export const heroSlides: HeroSlide[] = [
     ],
   },
   {
-    image: heroNy,
-    alt: 'A thin New York slice folded lengthwise, cheese stretching, crisp underside showing.',
-    stage: 'New York',
-    title: 'New York',
-    body: 'Tomato and cheese, nothing else. Thin, foldable, crisp underneath.',
+    image: heroThin,
+    alt: 'A wide New York pizza with a folded slice beside a cracker-thin tavern pizza cut into squares.',
+    stage: 'New York & Chicago',
+    title: 'New York & Chicago',
+    body:
+      'Thin crust either way. Wide and foldable, or cracker-thin and cut into ' +
+      'squares with the toppings run out to the rim.',
     spec: [
-      { value: 'fold', label: 'test' },
-      { value: '18 in', label: 'round' },
-    ],
-  },
-  {
-    image: heroTavern,
-    alt: 'A cracker-thin tavern style pizza cut into small squares.',
-    stage: 'Tavern',
-    title: 'Tavern, party cut',
-    body: 'Cracker-thin and cut into squares. Toppings right out to the rim.',
-    spec: [
-      { value: 'square', label: 'cut' },
-      { value: 'no', label: 'cornicione' },
+      { value: 'fold', label: 'New York' },
+      { value: 'square', label: 'tavern' },
     ],
   },
   {
