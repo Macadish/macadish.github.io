@@ -94,6 +94,13 @@ const fmt = (d: Date) =>
           What I baked, what I measured, and what went wrong. When there is
           something to sell, subscribers hear first.
         </p>
+
+        <p class="contact">
+          <a href="mailto:jon@macadish.com">jon@macadish.com</a>
+          <a href="https://www.instagram.com/macadish/" rel="me noopener" target="_blank">
+            @macadish
+          </a>
+        </p>
       </div>
       <div>
         <form class="form" method="post" action="#">
@@ -102,7 +109,7 @@ const fmt = (d: Date) =>
         </form>
         <p class="note">
           Not yet wired to a provider.<br />
-          No address published: home kitchen, contact by form.
+          Home kitchen — no street address published.
         </p>
       </div>
     </div>
@@ -237,6 +244,25 @@ const fmt = (d: Date) =>
   }
 
   .sub .blurb { color: var(--muted); margin: 0; max-width: 42ch; }
+
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.5rem;
+    margin: 1.4rem 0 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    font-family: var(--f-mono);
+    font-size: 0.76rem;
+  }
+
+  .contact a {
+    color: var(--sci);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .contact a:hover { border-bottom-color: var(--sci); }
 
   .form { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.4rem; }
 
