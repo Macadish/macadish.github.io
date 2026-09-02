@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import { styles } from '../data/styles';
-import { site } from '../data/site';
+import { site, instagramUrl } from '../data/site';
 
 const posts = (await getCollection('journal', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -98,7 +98,7 @@ const fmt = (d: Date) =>
 
         <p class="contact">
           <span>{site.email}</span>
-          <span>@{site.instagram}</span>
+          <a href={instagramUrl} rel="me noopener" target="_blank">@{site.instagram}</a>
         </p>
       </div>
       <div>
@@ -257,6 +257,14 @@ const fmt = (d: Date) =>
     color: var(--ink);
     user-select: all;
   }
+
+  .contact a {
+    color: var(--sci);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .contact a:hover { border-bottom-color: var(--sci); }
 
   .form { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.4rem; }
 

@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { site } from '../data/site';
+import { site, instagramUrl } from '../data/site';
 
 const live = site.formEndpoint.length > 0;
 ---
@@ -63,9 +63,11 @@ const live = site.formEndpoint.length > 0;
       </form>
 
       <aside class="aside">
-        <p class="label">Elsewhere</p>
+        <p class="label">Or reach me directly</p>
         <p class="pick">{site.email}</p>
-        <p class="pick">@{site.instagram}</p>
+        <p class="social">
+          <a href={instagramUrl} rel="me noopener" target="_blank">@{site.instagram}</a>
+        </p>
         <p class="small">
           Home kitchen in Singapore, so there is no street address to visit. For
           dates and availability, see <a href="/reservations/">reservations</a>.
@@ -174,6 +176,19 @@ const live = site.formEndpoint.length > 0;
   }
 
   .status .pick { font-size: 0.8rem; margin-left: 0.3rem; }
+
+  .social {
+    font-family: var(--f-mono);
+    font-size: 0.82rem;
+  }
+
+  .social a {
+    color: var(--sci);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .social a:hover { border-bottom-color: var(--sci); }
 
   .aside .small {
     margin-top: 1.1rem;

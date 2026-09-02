@@ -1,5 +1,5 @@
 ---
-import { site } from '../data/site';
+import { site, instagramUrl } from '../data/site';
 
 const year = new Date().getFullYear();
 ---
@@ -15,7 +15,7 @@ const year = new Date().getFullYear();
     <a href="/contact/">Contact</a>
     <a href="/#subscribe">Subscribe</a>
     <a href="/rss.xml">RSS</a>
-    <span class="contact">@{site.instagram}</span>
+    <a href={instagramUrl} rel="me noopener" target="_blank">@{site.instagram}</a>
     <span class="contact">{site.email}</span>
     <span class="year">© {year}</span>
   </div>
