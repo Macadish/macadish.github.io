@@ -6,6 +6,7 @@ import Base from '../layouts/Base.astro';
   title="About — Macadish"
   description="Why I measure dough, what a home kitchen can and cannot measure, and the tradeoff most pizza decisions come down to."
 >
+  <div class="about">
   <div class="page-head">
     <p class="label">Draft · Singapore</p>
     <h1>About</h1>
@@ -105,11 +106,22 @@ import Base from '../layouts/Base.astro';
 
     <p class="note">Draft. Still to be rewritten properly in my own words.</p>
   </article>
+  </div>
 </Base>
 
 <style>
+  .about {
+    max-width: calc(42rem + var(--pad) * 2);
+    margin: 0 auto;
+    padding-inline: var(--pad);
+  }
+
+  .about .page-head {
+    padding-inline: 0;
+  }
+
   .essay {
-    padding: 0 var(--edge) 5rem;
+    padding: 0 0 5rem;
   }
 
   .essay .standfirst {
@@ -118,7 +130,6 @@ import Base from '../layouts/Base.astro';
     margin: 0 0 2.5rem;
     padding-bottom: 1.6rem;
     border-bottom: 1px solid var(--rule);
-    max-width: 54ch;
     text-wrap: pretty;
   }
 
@@ -134,13 +145,11 @@ import Base from '../layouts/Base.astro';
 
   .essay p {
     margin: 0 0 1.1rem;
-    max-width: var(--measure);
   }
 
   .essay hr {
     border: 0;
     border-top: 1px solid var(--rule);
     margin: 3rem 0 1.4rem;
-    max-width: var(--measure);
   }
 </style>
