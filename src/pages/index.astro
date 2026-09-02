@@ -96,10 +96,8 @@ const fmt = (d: Date) =>
         </p>
 
         <p class="contact">
-          <a href="mailto:jon@macadish.com">jon@macadish.com</a>
-          <a href="https://www.instagram.com/macadish/" rel="me noopener" target="_blank">
-            @macadish
-          </a>
+          <span>jon@macadish.com</span>
+          <span>@macadish</span>
         </p>
       </div>
       <div>
@@ -256,13 +254,10 @@ const fmt = (d: Date) =>
     font-size: 0.76rem;
   }
 
-  .contact a {
-    color: var(--sci);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
+  .contact span {
+    color: var(--ink);
+    user-select: all;
   }
-
-  .contact a:hover { border-bottom-color: var(--sci); }
 
   .form { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.4rem; }
 

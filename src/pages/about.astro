@@ -1,0 +1,145 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="About — Macadish"
+  description="Why I measure dough, what a home kitchen can and cannot measure, and the one axis most pizza decisions sit on."
+>
+  <div class="page-head">
+    <p class="label">Draft · Singapore</p>
+    <h1>About</h1>
+    <p class="lede">
+      I make pizza in a home kitchen in Singapore, across four doughs, and I write
+      down what happens. This page is why.
+    </p>
+  </div>
+
+  <article class="essay">
+    <p class="standfirst">
+      Most pizza advice is a description of one person's kitchen, generalised into a
+      rule. I would like to know which parts actually transfer.
+    </p>
+
+    <h2>Many roads, same crust</h2>
+
+    <p>
+      Cold ferment against long ferment against same-day. Bulk before balling, or
+      balling before the cold. Poolish, biga, direct. One flour or a blend.
+      Sixty-two per cent hydration or ninety. People reach a light, open crust from
+      wildly different starting points, and each of them will tell you their route
+      is the one that matters.
+    </p>
+
+    <p>
+      They cannot all be right, and I do not think they are all wrong either. What
+      I think it means is that the variables doing the real work are not the ones
+      being argued about — they are the ones nobody can measure at home.
+    </p>
+
+    <h2>What a kitchen can and cannot see</h2>
+
+    <p>
+      Doubling in volume. The windowpane. A pH strip. How the preferment smells.
+      These are proxies, and they work — but they work for <em>your</em> dough,
+      as a way of hitting the same result twice. They are not precise enough to
+      compare two doughs built from different inputs, which is exactly what you
+      need if you want to know why something worked.
+    </p>
+
+    <p>
+      What I would actually want is a single probe reading pH and acid composition,
+      temperature, yeast activity and population, remaining sugar, volatile
+      compounds, and rheology. Give bakers the instruments scientists have and a lot
+      of confident advice would quietly disappear.
+    </p>
+
+    <h2>The axis everything sits on</h2>
+
+    <p>
+      Extensible enough to open, strong enough to spring. Almost every choice I make
+      is really just picking a point between those two: poolish, warmth and water
+      buy extensibility; biga, cooler handling and stronger flour buy structure and
+      a puffy rim. Naming the axis makes the decisions legible — most of the time I
+      am not choosing a method, I am choosing where on that line to sit.
+    </p>
+
+    <h2>Twenty-nine degrees</h2>
+
+    <p>
+      A Singapore kitchen sits around 29 °C, which is warmer than most recipes
+      assume and warm enough to run away from you. So I ferment in a cooler box with
+      an ice pack — not to hold the dough cold, but as a slow warming ramp: down to
+      about 9 °C for an hour, then climbing to 20 °C over seven, capping well below
+      the room.
+    </p>
+
+    <p>
+      Nothing in a European recipe accounts for that. Half of what I have learned is
+      just working out which numbers travel and which ones were always local.
+    </p>
+
+    <h2>Why the failures are written down</h2>
+
+    <p>
+      A dough that works tells you that you are inside the window. A dough that
+      fails tells you where the edge is, which is the more useful fact and the more
+      expensive one to buy. So the over-proofed ones, the ones that tore on opening,
+      the experiment that came back inconclusive because the mixer would not autolyse
+      gently — those get an entry too.
+    </p>
+
+    <p>
+      Every specification here carries two halves, and they matter equally: a number
+      I can repeat, and a judgement I can only make with my hands in the dough.
+      Anyone offering one without the other is leaving out the difficult part.
+    </p>
+
+    <hr />
+
+    <p class="note">
+      Placeholder draft, written from my working notes. To be rewritten in my own
+      words before this goes anywhere.
+    </p>
+  </article>
+</Base>
+
+<style>
+  .essay {
+    max-width: calc(680px + var(--pad) * 2);
+    margin: 0 auto;
+    padding: 0 var(--pad) 5rem;
+  }
+
+  .essay .standfirst {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin: 0 0 2.5rem;
+    padding-bottom: 1.6rem;
+    border-bottom: 1px solid var(--rule);
+    text-wrap: pretty;
+  }
+
+  .essay h2 {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-stretch: 110%;
+    font-size: 1.2rem;
+    letter-spacing: -0.015em;
+    margin: 2.8rem 0 0.7rem;
+    text-wrap: balance;
+  }
+
+  .essay p {
+    margin: 0 0 1.1rem;
+    max-width: var(--measure);
+  }
+
+  .essay em { color: var(--ink); font-style: italic; }
+
+  .essay hr {
+    border: 0;
+    border-top: 1px solid var(--rule);
+    margin: 3rem 0 1.4rem;
+  }
+</style>
