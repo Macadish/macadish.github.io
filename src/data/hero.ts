@@ -39,8 +39,8 @@ export const heroSlides: HeroSlide[] = [
     title: 'Macadish',
     lead: true,
     body:
-      'Pizza built the long way — blended flour, days of cold fermentation, ' +
-      'and a bench that will not settle on one dough.',
+      'Pizza, the ultimate vessel for exploring texture and flavour. ' +
+      'One style is not enough.',
     spec: [
       { value: '4', label: 'doughs' },
       { value: '58–90%', label: 'hydration' },
@@ -65,7 +65,7 @@ export const heroSlides: HeroSlide[] = [
     chapter: 'Styles',
     stage: 'Alla pala',
     title: 'Pizza alla pala & al taglio',
-    body: 'Hydration pushed high enough that the base goes properly crisp.',
+    body: 'Crispiness pushed as far as it goes, through very high hydration.',
     spec: [
       { value: '80–90%', label: 'hydration' },
       { value: 'by weight', label: 'sold' },
@@ -77,7 +77,7 @@ export const heroSlides: HeroSlide[] = [
     chapter: 'Styles',
     stage: 'Focaccia & padellino',
     title: 'Focaccia & padellino',
-    body: 'Crisp traded for the chew of proper bread.',
+    body: 'Sometimes you want a good chew of bread — focaccia is just the thing.',
     spec: [
       { value: 'pan', label: 'baked' },
       { value: 'olive oil', label: 'base' },
@@ -90,7 +90,7 @@ export const heroSlides: HeroSlide[] = [
     stage: 'Detroit, grandma, Sicilian',
     title: 'Detroit, grandma, Sicilian',
     body:
-      'Pan pizza graduated — cheesier, crisper, and a long way from the chain version.',
+      'A pan lets us work the crust with oil and cheese to build frico edges.',
     spec: [
       { value: 'frico', label: 'edge' },
       { value: 'steel', label: 'pan' },
@@ -103,8 +103,8 @@ export const heroSlides: HeroSlide[] = [
     stage: 'Flour',
     title: 'Italian and Canadian flour',
     body:
-      'Canadian strength, Italian extensibility — blended per style. ' +
-      'One bench cannot cover this range on one flour.',
+      "Optimising for extensibility and strength to suit Singapore's climate, " +
+      'while preserving flavour and texture.',
     spec: [
       { value: 'W 260–320', label: 'range' },
       { value: '2', label: 'flours' },
@@ -115,12 +115,13 @@ export const heroSlides: HeroSlide[] = [
     alt: 'Dough balls resting in a proofing box, fermentation bubbles visible.',
     chapter: 'How',
     stage: 'Fermentation',
-    title: 'Fermented 48 to 72 hours',
+    title: 'Fermented 24 to 72 hours',
     body:
-      'The one thing every style shares. Long, cold, and the reason all four ' +
-      'taste like they came from the same kitchen.',
+      'In the Italian tradition, long fermentation is key to unlocking flavour ' +
+      'and improving digestibility. Our dough uses biga and poolish to extend ' +
+      'fermentation and achieve a consistent texture.',
     spec: [
-      { value: '48–72 h', label: '@ 4 °C' },
+      { value: '24–72 h', label: '@ 4 °C' },
       { value: '0.12%', label: 'yeast' },
     ],
   },
@@ -129,8 +130,10 @@ export const heroSlides: HeroSlide[] = [
     alt: 'Italian and Singaporean ingredients laid out together on a dark bench.',
     chapter: 'How',
     stage: 'Flavour',
-    title: 'Italian method, Singaporean pantry',
-    body: 'Local flavours across the range — as precise about sambal as about San Marzano.',
+    title: 'Expressing Italian and local flavours',
+    body:
+      'Everything tastes better on good bread, and pizza is the best bread ' +
+      'there is. Italian technique, local flavour.',
     spec: [
       { value: '2', label: 'traditions' },
       { value: '1', label: 'dough' },
@@ -141,10 +144,11 @@ export const heroSlides: HeroSlide[] = [
     alt: 'A digital scale and probe thermometer beside a dough ball.',
     chapter: 'How',
     stage: 'Method',
-    title: 'Optimised by experiment',
+    title: 'Constant adaptation and refinement',
     body:
-      'Each style dialled in separately, one variable at a time. ' +
-      'Breadth is not guesswork; it is four times the work.',
+      'Pizza making is as much a science as it is an art. The fun is knowing ' +
+      'that whether it is the temperature, the flour or the handling, there is ' +
+      'always something to improve.',
     spec: [
       { value: '61', label: 'bakes' },
       { value: '19', label: 'binned' },
