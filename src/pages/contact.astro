@@ -1,14 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
 
-/**
- * Static hosting has no backend, so the form needs a third-party endpoint.
- * Sign up somewhere like Formspree, Web3Forms or Basin, paste the POST URL
- * here, and the form goes live. While this is empty the submit button stays
- * disabled so nothing is silently lost.
- */
-const FORM_ENDPOINT = '';
-const live = FORM_ENDPOINT.length > 0;
+const live = site.formEndpoint.length > 0;
 ---
 
 <Base
@@ -28,7 +22,7 @@ const live = FORM_ENDPOINT.length > 0;
       <form
         class="enquiry"
         method="post"
-        action={live ? FORM_ENDPOINT : undefined}
+        action={live ? site.formEndpoint : undefined}
         aria-describedby={live ? undefined : 'form-status'}
       >
         <p class="field">
@@ -46,6 +40,8 @@ const live = FORM_ENDPOINT.length > 0;
           <textarea id="message" name="message" rows="7" required placeholder="Tell me what you need."></textarea>
         </p>
 
+        <input type="hidden" name="_subject" value="Enquiry from macadish.com" />
+
         {/* spam trap — real people never fill this in */}
         <p class="trap" aria-hidden="true">
           <label for="company">Company</label>
@@ -60,7 +56,7 @@ const live = FORM_ENDPOINT.length > 0;
           !live && (
             <p class="status" id="form-status">
               The form is not connected yet. In the meantime, email me at
-              <span class="pick">jon@macadish.com</span>.
+              <span class="pick">{site.email}</span>.
             </p>
           )
         }
@@ -68,8 +64,8 @@ const live = FORM_ENDPOINT.length > 0;
 
       <aside class="aside">
         <p class="label">Elsewhere</p>
-        <p class="pick">jon@macadish.com</p>
-        <p class="pick">@macadish</p>
+        <p class="pick">{site.email}</p>
+        <p class="pick">@{site.instagram}</p>
         <p class="small">
           Home kitchen in Singapore, so there is no street address to visit. For
           dates and availability, see <a href="/reservations/">reservations</a>.

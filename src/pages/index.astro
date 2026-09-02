@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import { styles } from '../data/styles';
+import { site } from '../data/site';
 
 const posts = (await getCollection('journal', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -96,19 +97,17 @@ const fmt = (d: Date) =>
         </p>
 
         <p class="contact">
-          <span>jon@macadish.com</span>
-          <span>@macadish</span>
+          <span>{site.email}</span>
+          <span>@{site.instagram}</span>
         </p>
       </div>
       <div>
-        <form class="form" method="post" action="#">
+        <form class="form" method="post" action={site.formEndpoint}>
+          <input type="hidden" name="_subject" value="New subscriber from macadish.com" />
           <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required />
           <button type="submit">Subscribe</button>
         </form>
-        <p class="note">
-          Not yet wired to a provider.<br />
-          Home kitchen — no street address published.
-        </p>
+        <p class="note">Home kitchen — no street address published.</p>
       </div>
     </div>
   </section>

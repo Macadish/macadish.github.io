@@ -1,4 +1,6 @@
 ---
+import { site } from '../data/site';
+
 const year = new Date().getFullYear();
 ---
 
@@ -13,8 +15,8 @@ const year = new Date().getFullYear();
     <a href="/contact/">Contact</a>
     <a href="/#subscribe">Subscribe</a>
     <a href="/rss.xml">RSS</a>
-    <span class="contact">@macadish</span>
-    <span class="contact">jon@macadish.com</span>
+    <span class="contact">@{site.instagram}</span>
+    <span class="contact">{site.email}</span>
     <span class="year">© {year}</span>
   </div>
 </footer>
