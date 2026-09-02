@@ -1,99 +1,88 @@
 /**
- * The menu. Groups render in the order given; items within a group in the
- * order given. `style` appears only when an item departs from its group's
- * dough — leave it out when it matches, or the label is just noise.
+ * The menu, split into what it is and what it could be.
+ *
+ * Every item names its dough and then its ingredients — no descriptive copy.
+ * Keep the ingredient lists short: they are set centred, so long lines wrap
+ * badly and break the symmetry the layout depends on.
  *
  * Placeholder content: replace with real items before trading.
  */
 
 export interface MenuItem {
   name: string;
-  /** Only when the dough differs from the group. */
-  style?: string;
-  description: string;
+  /** The dough it is built on. */
+  style: string;
+  /** Ingredients, comma separated, no full stop. */
+  ingredients: string;
 }
 
 export interface MenuGroup {
   title: string;
-  /** Right-aligned figures on the group rule. */
-  spec: string;
+  /** One short line under the group heading. */
+  note: string;
   items: MenuItem[];
 }
 
 export const menu: MenuGroup[] = [
   {
-    title: 'Contemporary Neapolitan',
-    spec: '62% · 90 s @ 470 °C',
+    title: 'Classic',
+    note: 'The canon, as it should be',
     items: [
       {
         name: 'Margherita',
-        description:
-          'San Marzano, fior di latte, basil. The cornicione is the whole argument.',
+        style: 'Contemporary Neapolitan',
+        ingredients: 'San Marzano, fior di latte, basil, olive oil',
       },
       {
         name: 'Marinara',
-        description: 'Tomato, garlic, oregano, no cheese. The dough with nowhere to hide.',
+        style: 'Contemporary Neapolitan',
+        ingredients: 'San Marzano, garlic, oregano, olive oil',
       },
       {
         name: 'Mushroom & burrata',
-        style: '96-hour dough',
-        description: 'Roasted mushroom, burrata torn over the top after the bake.',
+        style: 'Contemporary Neapolitan',
+        ingredients: 'Roasted mushroom, burrata, thyme, black pepper',
       },
-    ],
-  },
-  {
-    title: 'Alla pala, by the slice',
-    spec: '80–85% hydration',
-    items: [
       {
         name: 'Mortadella & pistachio',
-        description: 'Cut with scissors, folded, eaten standing up.',
+        style: 'Alla pala',
+        ingredients: 'Mortadella, stracciatella, pistachio, lemon zest',
       },
       {
         name: 'Potato & rosemary',
-        description: 'Sliced thin, olive oil, salt. Nothing else needs to happen.',
+        style: 'Alla pala',
+        ingredients: 'Potato, rosemary, olive oil, sea salt',
       },
     ],
   },
   {
-    title: 'Experiments',
-    spec: 'rotating · usually two at a time',
+    title: 'Creative',
+    note: 'Rotating, usually two at a time',
     items: [
       {
         name: 'Pad kra pao',
         style: 'Neo-Neapolitan',
-        description:
-          'Minced pork with holy basil, prik nam pla in place of tomato, crispy egg. ' +
-          'Cheese here is glue, not the hero.',
+        ingredients: 'Minced pork, holy basil, prik nam pla, crispy egg, mozzarella',
       },
       {
         name: 'Japanese beef shank curry',
         style: 'Neo-Neapolitan',
-        description: 'Slow-cooked beef shank curry, bonito flakes on the way out.',
+        ingredients: 'Beef shank curry, bonito, mozzarella, spring onion',
       },
-    ],
-  },
-  {
-    title: 'Local',
-    spec: 'seasonal',
-    items: [
       {
         name: 'Chilli crab',
         style: 'Detroit',
-        description:
-          'Crab in chilli-tomato, egg ribbons, frico edge to scrape up what escapes.',
+        ingredients: 'Crab, chilli tomato, egg ribbon, brick cheese',
       },
       {
         name: 'Satay chicken',
         style: 'Neo-Neapolitan',
-        description:
-          'Charred chicken thigh, peanut, cucumber and red onion added cold at the pass.',
+        ingredients: 'Chicken thigh, peanut, cucumber, red onion',
       },
       {
         name: 'Laksa prawn',
         style: 'Teglia romana',
-        description:
-          'Laksa gravy reduced until it will sit on a base, prawn, laksa leaf.',
+        ingredients: 'Laksa gravy, prawn, laksa leaf, mozzarella',
       },
     ],
   },

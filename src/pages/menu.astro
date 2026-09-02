@@ -19,19 +19,15 @@ import { menu } from '../data/menu';
         menu.map((group) => (
           <div class="menu-group">
             <p class="group-title">{group.title}</p>
-            <p class="group-spec">{group.spec}</p>
+            <p class="group-spec">{group.note}</p>
 
             {group.items.map((item) => (
               <div class="item">
                 <h2>{item.name}</h2>
                 <p class="desc">
-                  {item.style && (
-                    <>
-                      <span class="style">{item.style}</span>
-                      <span class="sep" aria-hidden="true">|</span>
-                    </>
-                  )}
-                  {item.description}
+                  <span class="style">{item.style}</span>
+                  <span class="sep" aria-hidden="true">|</span>
+                  <span class="ingredients">{item.ingredients}</span>
                 </p>
               </div>
             ))}
@@ -107,11 +103,13 @@ import { menu } from '../data/menu';
 
   .desc {
     margin: 0 auto;
-    max-width: 48ch;
+    max-width: 52ch;
     font-size: 0.98rem;
     color: var(--muted);
     text-wrap: pretty;
   }
+
+  .ingredients { white-space: normal; }
 
   .style {
     font-family: var(--f-mono);
