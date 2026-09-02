@@ -15,10 +15,15 @@ const isCurrent = (href: string) =>
 
   <nav id="site-nav" aria-label="Primary">
     <a href="/menu/" aria-current={isCurrent('/menu') ? 'page' : undefined}>Menu</a>
+    <a href="/reservations/" aria-current={isCurrent('/reservations') ? 'page' : undefined}>
+      Reservations
+    </a>
     <a href="/journal/" aria-current={isCurrent('/journal') ? 'page' : undefined}>Journal</a>
     <a href="/about/" aria-current={isCurrent('/about') ? 'page' : undefined}>About</a>
     <span class="nav-sep" aria-hidden="true"></span>
-    <a class="nav-cta" href="/#subscribe">Subscribe</a>
+    <a class="nav-cta" href="/contact/" aria-current={isCurrent('/contact') ? 'page' : undefined}>
+      Contact
+    </a>
   </nav>
 </header>
 
