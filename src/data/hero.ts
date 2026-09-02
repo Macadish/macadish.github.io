@@ -15,17 +15,20 @@ import hero06 from '../assets/hero/hero-06.jpg';
 import hero07 from '../assets/hero/hero-07.jpg';
 import hero08 from '../assets/hero/hero-08.jpg';
 import hero09 from '../assets/hero/hero-09.jpg';
+import heroNy from '../assets/hero/hero-10-ny.jpg';
+import heroTavern from '../assets/hero/hero-11-tavern.jpg';
 
 export interface HeroSlide {
   image: ImageMetadata;
   alt: string;
-  chapter: string;
-  /** Shown as "03 — Styles". Omitted on the opening slide. */
+  /** Small label above the title. Omitted on the opening slide. */
   stage?: string;
   eyebrow?: string;
   title: string;
   /** Rendered as the h1 on the opening slide only. */
   lead?: boolean;
+  /** Outlined button, opening slide only. */
+  cta?: { label: string; href: string };
   body?: string;
   spec?: { value: string; label: string }[];
 }
@@ -34,13 +37,11 @@ export const heroSlides: HeroSlide[] = [
   {
     image: hero01,
     alt: 'Five styles of pizza arranged on a dark steel bench.',
-    chapter: 'Macadish',
     eyebrow: 'Singapore · home kitchen',
     title: 'Macadish',
     lead: true,
-    body:
-      'Pizza, the ultimate vessel for exploring texture and flavour. ' +
-      'One style is not enough.',
+    body: 'Making pizzas the way I like them.',
+    cta: { label: 'Reservations', href: '/reservations/' },
     spec: [
       { value: '4', label: 'doughs' },
       { value: '58–90%', label: 'hydration' },
@@ -50,7 +51,6 @@ export const heroSlides: HeroSlide[] = [
   {
     image: hero02,
     alt: 'A contemporary Neapolitan pizza with a blistered, leopard-spotted rim.',
-    chapter: 'Styles',
     stage: 'Contemporary Neapolitan',
     title: 'Contemporary Neapolitan',
     body: 'The classic with a modern spin — lighter, puffier, and crisper in the bite.',
@@ -62,7 +62,6 @@ export const heroSlides: HeroSlide[] = [
   {
     image: hero03,
     alt: 'A long rectangular pizza al taglio cut to show an open, airy crumb.',
-    chapter: 'Styles',
     stage: 'Alla pala',
     title: 'Pizza alla pala & al taglio',
     body: 'Crispiness pushed as far as it goes, through very high hydration.',
@@ -74,7 +73,6 @@ export const heroSlides: HeroSlide[] = [
   {
     image: hero04,
     alt: 'Dimpled focaccia with pooled olive oil beside a small pan pizza.',
-    chapter: 'Styles',
     stage: 'Focaccia & padellino',
     title: 'Focaccia & padellino',
     body: 'Sometimes you want a good chew of bread — focaccia is just the thing.',
@@ -86,7 +84,6 @@ export const heroSlides: HeroSlide[] = [
   {
     image: hero05,
     alt: 'A square Detroit pan pizza with a caramelised cheese crust, one corner lifted.',
-    chapter: 'Styles',
     stage: 'Detroit, grandma, Sicilian',
     title: 'Detroit, grandma, Sicilian',
     body:
@@ -97,9 +94,30 @@ export const heroSlides: HeroSlide[] = [
     ],
   },
   {
+    image: heroNy,
+    alt: 'A thin New York slice folded lengthwise, cheese stretching, crisp underside showing.',
+    stage: 'New York',
+    title: 'New York',
+    body: 'Tomato and cheese, nothing else. Thin, foldable, crisp underneath.',
+    spec: [
+      { value: 'fold', label: 'test' },
+      { value: '18 in', label: 'round' },
+    ],
+  },
+  {
+    image: heroTavern,
+    alt: 'A cracker-thin tavern style pizza cut into small squares.',
+    stage: 'Tavern',
+    title: 'Tavern, party cut',
+    body: 'Cracker-thin and cut into squares. Toppings right out to the rim.',
+    spec: [
+      { value: 'square', label: 'cut' },
+      { value: 'no', label: 'cornicione' },
+    ],
+  },
+  {
     image: hero06,
     alt: 'Two mounds of different flour being blended on a dark bench, dust in the air.',
-    chapter: 'How',
     stage: 'Flour',
     title: 'Italian and Canadian flour',
     body:
@@ -113,7 +131,6 @@ export const heroSlides: HeroSlide[] = [
   {
     image: hero07,
     alt: 'Dough balls resting in a proofing box, fermentation bubbles visible.',
-    chapter: 'How',
     stage: 'Fermentation',
     title: 'Fermented 24 to 72 hours',
     body:
@@ -128,7 +145,6 @@ export const heroSlides: HeroSlide[] = [
   {
     image: hero08,
     alt: 'Italian and Singaporean ingredients laid out together on a dark bench.',
-    chapter: 'How',
     stage: 'Flavour',
     title: 'Expressing Italian and local flavours',
     body:
@@ -142,7 +158,6 @@ export const heroSlides: HeroSlide[] = [
   {
     image: hero09,
     alt: 'A digital scale and probe thermometer beside a dough ball.',
-    chapter: 'How',
     stage: 'Method',
     title: 'Constant adaptation and refinement',
     body:

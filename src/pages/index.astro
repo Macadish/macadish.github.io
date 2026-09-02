@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import { styles } from '../data/styles';
+import Reel from '../components/Reel.astro';
 import { site, instagramUrl } from '../data/site';
 
 const posts = (await getCollection('journal', ({ data }) => !data.draft))
@@ -19,49 +19,7 @@ const fmt = (d: Date) =>
 >
   <Hero />
 
-  <section class="band">
-    <div class="sec-head">
-      <h2>Styles, compared</h2>
-      <span class="aside">Same variables, every dough</span>
-    </div>
-
-    <div class="table-scroll">
-      <table class="styles">
-        <thead>
-          <tr>
-            <th scope="col">Style</th>
-            <th scope="col">Hydration</th>
-            <th scope="col">Flour W</th>
-            <th scope="col">Proof</th>
-            <th scope="col">Oven</th>
-            <th scope="col">Bake</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            styles.map((s) => (
-              <tr>
-                <th scope="row">
-                  {s.name}
-                  <small>{s.character}</small>
-                </th>
-                <td>
-                  <i class="bar" style={`width:${Math.round(s.hydration * 50)}px`} />
-                  {Math.round(s.hydration * 100)}%
-                </td>
-                <td>{s.flourW}</td>
-                <td>{s.proof}</td>
-                <td>{s.oven}</td>
-                <td>{s.bake}</td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
-    </div>
-
-    <p class="note">Placeholder figures — to be replaced with measured values.</p>
-  </section>
+  <Reel />
 
   <section class="band">
     <div class="sec-head">
@@ -113,60 +71,6 @@ const fmt = (d: Date) =>
 </Base>
 
 <style>
-  .table-scroll { overflow-x: auto; }
-
-  table.styles {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: var(--f-mono);
-    font-size: 0.78rem;
-    font-variant-numeric: tabular-nums;
-    min-width: 640px;
-  }
-
-  table.styles th,
-  table.styles td {
-    text-align: left;
-    padding: 0.72rem 1rem 0.72rem 0;
-    border-bottom: 1px solid var(--rule-soft);
-    white-space: nowrap;
-  }
-
-  table.styles thead th {
-    font-size: 0.6rem;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 500;
-    border-bottom: 1px solid var(--ink);
-  }
-
-  table.styles tbody th {
-    font-family: var(--f-display);
-    font-weight: 600;
-    font-stretch: 110%;
-    font-size: 0.94rem;
-    padding-right: 2rem;
-  }
-
-  table.styles tbody th small {
-    display: block;
-    font-family: var(--f-body);
-    font-stretch: normal;
-    font-size: 0.78rem;
-    font-weight: 400;
-    color: var(--muted);
-    font-style: italic;
-  }
-
-  .bar {
-    display: inline-block;
-    vertical-align: middle;
-    height: 6px;
-    background: var(--sci);
-    margin-right: 0.5rem;
-  }
-
   .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));

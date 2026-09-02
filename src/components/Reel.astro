@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets';
+import { reel } from '../data/reel';
+---
+
+{
+  reel.length > 0 && (
+    <section class="band">
+      <div class="sec-head">
+        <h2>Seen elsewhere</h2>
+        <span class="aside">Photographed by other people</span>
+      </div>
+
+      <ul class="reel">
+        {reel.map((item) => (
+          <li>
+            <Image src={item.image} alt={item.alt} widths={[400, 800]} sizes="(max-width: 700px) 70vw, 320px" />
+            <p class="credit">
+              {item.href ? <a href={item.href} rel="noopener" target="_blank">{item.credit}</a> : item.credit}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+<style>
+  .reel {
+    display: flex;
+    gap: 1px;
+    list-style: none;
+    margin: 0;
+    padding: 0 0 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    background: var(--rule);
+    border-block: 1px solid var(--rule);
+  }
+
+  .reel li {
+    flex: 0 0 auto;
+    width: min(320px, 70vw);
+    scroll-snap-align: start;
+    background: var(--paper);
+    padding-bottom: 0.9rem;
+  }
+
+  .reel :global(img) {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .credit {
+    margin: 0.7rem 0 0;
+    padding: 0 0.9rem;
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+  }
+
+  .credit a { color: var(--sci); text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>

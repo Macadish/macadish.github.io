@@ -27,6 +27,7 @@ import { heroSlides } from '../data/hero';
         {
           heroSlides.map((slide, i) => (
             <div
+              data-stage={slide.stage ?? ""}
               class:list={[
                 'caption',
                 i % 2 ? 'caption--top' : 'caption--bottom',
@@ -34,12 +35,13 @@ import { heroSlides } from '../data/hero';
               ]}
             >
               <div class="caption-inner">
-                {slide.eyebrow && <p class="eyebrow">{slide.eyebrow}</p>}
-                {slide.stage && (
-                  <p class="stage-no">
-                    {String(i).padStart(2, '0')} — {slide.chapter}
+                {slide.cta && (
+                  <p class="cta-row">
+                    <a class="cta" href={slide.cta.href}>{slide.cta.label}</a>
                   </p>
                 )}
+                {slide.eyebrow && <p class="eyebrow">{slide.eyebrow}</p>}
+                {slide.stage && <p class="stage-no">{slide.stage}</p>}
                 {slide.lead ? <h1>{slide.title}</h1> : <h2>{slide.title}</h2>}
                 {slide.body && <p class="body">{slide.body}</p>}
                 {slide.spec && (
@@ -62,8 +64,7 @@ import { heroSlides } from '../data/hero';
           {heroSlides.map((_, i) => <span class:list={['rail-seg', { 'is-done': i === 0 }]} />)}
         </div>
         <div class="rail-meta">
-          <span class="now">{heroSlides[0].chapter}</span>
-          <span class="count">00 / {String(heroSlides.length - 1).padStart(2, '0')}</span>
+          <span class="now">{heroSlides[0].stage ?? "Macadish"}</span>
         </div>
       </div>
     </div>
@@ -142,9 +143,31 @@ import { heroSlides } from '../data/hero';
 
   .caption-inner { max-width: 41rem; color: var(--on); }
 
+  .cta-row { margin: 0 0 1.35rem; }
+
+  .cta {
+    display: inline-block;
+    padding: 0.72rem 1.6rem;
+    border: 1px solid var(--on);
+    color: var(--on);
+    font-family: var(--f-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    pointer-events: auto;
+    transition: background 200ms ease, color 200ms ease;
+  }
+
+  .cta:hover,
+  .cta:focus-visible {
+    background: var(--on);
+    color: #14181a;
+  }
+
   .caption .eyebrow {
     font-family: var(--f-mono);
-    font-size: 0.62rem;
+    font-size: 0.74rem;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--on-dim);
@@ -153,7 +176,7 @@ import { heroSlides } from '../data/hero';
 
   .caption .stage-no {
     font-family: var(--f-mono);
-    font-size: 0.62rem;
+    font-size: 0.74rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--on-sci);
@@ -171,19 +194,19 @@ import { heroSlides } from '../data/hero';
 
   .caption h1 {
     font-stretch: 106%;
-    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-size: clamp(2.6rem, 6.4vw, 4.6rem);
     line-height: 0.98;
   }
 
   .caption h2 {
     font-stretch: 108%;
-    font-size: clamp(1.7rem, 3.8vw, 2.6rem);
+    font-size: clamp(1.9rem, 4.1vw, 2.9rem);
     line-height: 1.02;
   }
 
   .caption p.body {
     margin: 0;
-    font-size: 1.05rem;
+    font-size: 1.16rem;
     color: var(--on-dim);
     max-width: 38rem;
   }
@@ -196,7 +219,7 @@ import { heroSlides } from '../data/hero';
     padding-top: 0.8rem;
     border-top: 1px solid var(--on-rule);
     font-family: var(--f-mono);
-    font-size: 0.71rem;
+    font-size: 0.82rem;
     color: var(--on-dim);
     font-variant-numeric: tabular-nums;
   }
@@ -225,11 +248,10 @@ import { heroSlides } from '../data/hero';
 
   .rail-meta {
     display: flex;
-    justify-content: space-between;
     gap: 1rem;
     margin-top: 0.55rem;
     font-family: var(--f-mono);
-    font-size: 0.62rem;
+    font-size: 0.72rem;
     letter-spacing: 0.08em;
     color: var(--on-dim);
     font-variant-numeric: tabular-nums;
@@ -270,14 +292,10 @@ import { heroSlides } from '../data/hero';
   const caps = Array.from(document.querySelectorAll<HTMLElement>('.caption'));
   const segs = Array.from(document.querySelectorAll<HTMLElement>('.rail-seg'));
   const now = document.querySelector<HTMLElement>('.rail-meta .now');
-  const count = document.querySelector<HTMLElement>('.rail-meta .count');
 
-  const chapters = Array.from(caps).map(
-    (c) => c.querySelector('.stage-no')?.textContent?.split('—')[1]?.trim() ?? 'Macadish'
-  );
+  const labels = caps.map((c) => c.dataset.stage || 'Macadish');
 
   let current = 0;
-  const pad = (n: number) => String(n).padStart(2, '0');
 
   function activate(i: number) {
     if (i === current) return;
@@ -285,8 +303,7 @@ import { heroSlides } from '../data/hero';
     figs.forEach((f, j) => f.classList.toggle('is-active', j === i));
     caps.forEach((c, j) => c.classList.toggle('is-active', j === i));
     segs.forEach((s, j) => s.classList.toggle('is-done', j <= i));
-    if (now) now.textContent = i ? `${pad(i)} — ${chapters[i]}` : chapters[0];
-    if (count) count.textContent = `${pad(i)} / ${pad(steps.length - 1)}`;
+    if (now) now.textContent = labels[i];
   }
 
   if (steps.length && 'IntersectionObserver' in window) {

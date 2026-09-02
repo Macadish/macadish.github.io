@@ -65,13 +65,17 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  /* everything below is sized in rem, so this lifts the whole scale at once */
+  font-size: 17px;
+  scroll-behavior: smooth;
+}
 
 body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--f-body);
-  font-size: 17px;
+  font-size: 1.02rem;
   line-height: 1.6;
   margin: 0;
   -webkit-font-smoothing: antialiased;
