@@ -11,7 +11,7 @@ export const site = {
   email: 'jon@macadish.com',
   instagram: 'macadish',
   /** Page name or numeric id. Leave empty and the icon is not rendered. */
-  facebook: '',
+  facebook: 'macadish',
 } as const;
 
 export const instagramUrl = `https://www.instagram.com/${site.instagram}/`;
