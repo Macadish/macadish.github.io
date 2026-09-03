@@ -54,7 +54,7 @@ export const heroSlides: HeroSlide[] = [
     title: 'Contemporary Neapolitan',
     body: 'The classic with a modern spin — lighter, puffier, and crisper in the bite.',
     spec: [
-      { value: '62–65%', label: 'hydration' },
+      { value: '75%', label: 'hydration' },
       { value: '90 s', label: 'bake' },
     ],
   },
@@ -154,9 +154,5 @@ export const heroSlides: HeroSlide[] = [
       'Pizza making is as much a science as it is an art. The fun is knowing ' +
       'that whether it is the temperature, the flour or the handling, there is ' +
       'always something to improve.',
-    spec: [
-      { value: '61', label: 'bakes' },
-      { value: '19', label: 'binned' },
-    ],
   },
 ];
